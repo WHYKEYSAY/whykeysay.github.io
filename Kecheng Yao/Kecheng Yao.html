@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Kecheng Yao — Infrastructure / AI Systems</title>
+<meta name="description" content="Kecheng Yao — Co-founder & Infrastructure / AI Systems Lead. DevOps Engineer @ Ericsson, Montréal. A signal into the void.">
+<link rel="stylesheet" href="app/styles.css">
+</head>
+<body class="no-scroll">
+
+  <!-- fixed background + game layers -->
+  <div id="bg-gradient"></div>
+  <canvas id="game-canvas"></canvas>
+  <div id="veil"></div>
+  <div id="hit-flash"></div>
+  <div id="bomb-flash"></div>
+
+  <!-- chrome -->
+  <header id="topbar"></header>
+  <aside id="hud" class="hidden"></aside>
+  <div id="dock" class="hidden"></div>
+  <div id="toasts"></div>
+  <div id="settings"></div>
+
+  <!-- content column (built by ui.js) -->
+  <main id="content"></main>
+
+  <!-- boot / fighter-select overlay (built by ui.js) -->
+  <div id="overlay"></div>
+
+  <!-- bundler splash thumbnail -->
+  <template id="__bundler_thumbnail">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <rect width="100" height="100" fill="#0a0420"/>
+      <path d="M50 24 L62 64 L50 56 L38 64 Z" fill="none" stroke="#8A5CFF" stroke-width="3"/>
+      <circle cx="50" cy="44" r="3" fill="#FF3DA6"/>
+      <circle cx="28" cy="30" r="1.5" fill="#3DF0FF"/><circle cx="72" cy="34" r="1.5" fill="#3DF0FF"/><circle cx="66" cy="22" r="1.2" fill="#fff"/>
+    </svg>
+  </template>
+
+  <script src="app/data.js"></script>
+  <script src="app/game.js"></script>
+  <script src="app/ui.js"></script>
+</body>
+</html>
