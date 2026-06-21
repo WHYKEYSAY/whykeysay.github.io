@@ -103,6 +103,13 @@
     tb.innerHTML = "";
     tb.appendChild(el("div", "tb-mark", `<b>KY</b> // KECHENG YAO`));
     const right = el("div", "tb-right");
+    const extlinks = el("div", "tb-links");
+    [["Aquila", "https://aquila-dev.telotia.com/"], ["Auriga", "https://auriga-dev.telotia.com"]].forEach(([name, url]) => {
+      const a = el("a", "tb-link", name);
+      a.href = url; a.target = "_blank"; a.rel = "noopener noreferrer";
+      extlinks.appendChild(a);
+    });
+    right.appendChild(extlinks);
     const langset = el("div", "langset");
     [["en", "EN"], ["fr", "FR"], ["zh", "中"]].forEach(([code, lbl]) => {
       const b = el("button", code === lang ? "on" : "", lbl);
