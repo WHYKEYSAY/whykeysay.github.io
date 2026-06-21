@@ -178,19 +178,19 @@ window.SITE_DATA = (function () {
   // ---- about ---------------------------------------------------------------
   const about = {
     lede: {
-      en: "Kecheng is a Montréal-based DevOps engineer who is interested in how complex systems become more reliable, automated, and easier to understand.",
-      fr: "Kecheng est un ingénieur DevOps basé à Montréal, fasciné par la façon dont les systèmes complexes deviennent plus fiables, automatisés et compréhensibles.",
-      zh: "Kecheng 是一名常驻蒙特利尔的 DevOps 工程师，专注于让复杂系统变得更可靠、更自动化、更易于理解。",
+      en: "Kecheng is a Montréal-based engineer who deploys and operates reliable infrastructure end-to-end — from enterprise cloud and Kubernetes to a self-hosted, multi-GPU LLM cluster he designed and runs from zero.",
+      fr: "Kecheng est un ingénieur basé à Montréal qui déploie et exploite des infrastructures fiables de bout en bout — du cloud d'entreprise et Kubernetes jusqu'à un cluster LLM multi-GPU auto-hébergé qu'il a conçu et opère de zéro.",
+      zh: "Kecheng 是一名常驻蒙特利尔的工程师，端到端地部署与运维可靠的基础设施——从企业云与 Kubernetes，到一套他从零设计并运维的多 GPU 自托管 LLM 集群。",
     },
     body: {
-      en: "A Computer Engineering graduate from Concordia University, currently at Ericsson, he owns the technical foundation at Telotia — the infrastructure, automation, monitoring and AI-assisted workflows that turn a strong idea into a trustworthy system. He believes a validation product must itself be valid: traceable, observable, secure, and improvable.",
-      fr: "Diplômé en génie informatique de l'Université Concordia et actuellement chez Ericsson, il porte les fondations techniques de Telotia — l'infrastructure, l'automatisation, la supervision et les flux assistés par IA qui transforment une bonne idée en système fiable. Pour lui, un produit de validation doit lui-même être valide : traçable, observable, sécurisé et perfectible.",
-      zh: "他毕业于 Concordia 大学计算机工程专业，目前在 Ericsson 工作，并负责 Telotia 的技术底层——把好想法变成可信系统所需的基础设施、自动化、监控与 AI 辅助流程。他相信：一个做验证的产品，自身也必须是可验证的——可追踪、可观测、安全、可持续改进。",
+      en: "Computer Engineering grad from Concordia (now in the Cybersecurity & Intelligent Systems master's) and a DevOps engineer at Ericsson, he designs, ships and owns systems end-to-end — and runs Orion, a self-hosted AI cluster serving 35B–122B models, as the proving ground. He likes the forward-deployed parts: standing up complex infra in a messy real environment, integrating it the last mile, tuning it against hard physical constraints, and owning the incident response when it breaks.",
+      fr: "Diplômé en génie informatique de Concordia (et en maîtrise Cybersécurité & Systèmes intelligents) et ingénieur DevOps chez Ericsson, il conçoit, livre et assume des systèmes de bout en bout — et opère Orion, un cluster IA auto-hébergé servant des modèles de 35B à 122B, comme terrain d'épreuve. Il aime le côté « forward-deployed » : monter une infra complexe dans un environnement réel et désordonné, l'intégrer jusqu'au dernier kilomètre, l'optimiser face à des contraintes physiques dures, et assumer la réponse aux incidents quand ça casse.",
+      zh: "他毕业于 Concordia 计算机工程（现就读网络安全与智能系统硕士），是 Ericsson 的 DevOps 工程师；端到端地设计、交付并掌管系统——并以自托管 AI 集群 Orion（服务 35B–122B 模型）作为试验场。他偏爱「前线交付」的部分：在真实而混乱的环境里搭起复杂基础设施、做好最后一公里集成、在硬物理约束下调优，并在系统出事时扛起事件响应。",
     },
     keywords: [
-      "Infrastructure reliability", "Cloud architecture", "DevOps automation",
-      "Kubernetes operations", "Observability", "Root-cause analysis",
-      "AI systems", "Quality systems engineering", "Software supply chain security",
+      "Self-hosted LLM serving", "Multi-GPU inference", "Forward-deployed delivery",
+      "Infrastructure reliability", "Cloud architecture", "Kubernetes operations",
+      "Observability", "Incident response", "Software supply-chain security",
     ],
     education: [
       {
@@ -211,9 +211,9 @@ window.SITE_DATA = (function () {
     place: { en: "Montréal, Canada", fr: "Montréal, Canada", zh: "加拿大蒙特利尔" },
     period: { en: "Aug 2022 — Present", fr: "Août 2022 — Présent", zh: "2022年8月 — 至今" },
     intro: {
-      en: "Enterprise cloud infrastructure, Kubernetes, automation, monitoring, CI/CD and platform reliability — across daily operations and large transformation projects.",
-      fr: "Infrastructure cloud d'entreprise, Kubernetes, automatisation, supervision, CI/CD et fiabilité des plateformes — opérations quotidiennes et grands projets de transformation.",
-      zh: "企业级云基础设施、Kubernetes、自动化、监控、CI/CD 与平台可靠性——涵盖日常运维与大型转型项目。",
+      en: "Enterprise cloud infrastructure, Kubernetes, automation, monitoring, CI/CD and platform reliability. Spearheaded an AWS platform migration to 99.9% uptime and 40% lower cost, cut manual operations ~90% through Kubernetes automation, and tripled deployment frequency across 50+ repositories.",
+      fr: "Infrastructure cloud d'entreprise, Kubernetes, automatisation, supervision, CI/CD et fiabilité des plateformes. Mené une migration de plateforme AWS atteignant 99,9 % de disponibilité et 40 % de coûts en moins, réduit les opérations manuelles d'environ 90 % via l'automatisation Kubernetes, et triplé la fréquence de déploiement sur plus de 50 dépôts.",
+      zh: "企业级云基础设施、Kubernetes、自动化、监控、CI/CD 与平台可靠性。主导了一次 AWS 平台迁移，达成 99.9% 可用性与 40% 成本下降；通过 Kubernetes 自动化把手工运维减少约 90%；并在 50+ 仓库上将部署频率提升至 3 倍。",
     },
     areas: [
       {
@@ -246,6 +246,16 @@ window.SITE_DATA = (function () {
   // ---- projects (mapped to weapon colours) --------------------------------
   // sys: which HUD system this card belongs to (aws/azure/gcp/mlai/art/uiux/none)
   const projects = [
+    {
+      id: "orion", sys: "mlai", name: "Orion — Self-Hosted AI Inference Cluster",
+      period: { en: "2026 — Present", fr: "2026 — Présent", zh: "2026 — 至今" },
+      blurb: {
+        en: "Designed, deployed and operate a 3-node self-hosted AI cluster (2 heterogeneous GPU workstations + a TrueNAS control plane) serving 35B–122B LLMs via llama.cpp over a home LAN — Caddy failover routing, Tailscale mesh, Cloudflare tunnel, and Dockerized Telegram-bot + web front-ends. Tuned a 122B MoE to ~22.5 tok/s on 48 GB of asymmetric consumer VRAM (+35%) by diagnosing host RAM — not VRAM — as the real bottleneck. Detected, contained and remediated a live Cobalt-Strike C2 compromise end-to-end.",
+        fr: "Conçu, déployé et exploité un cluster IA auto-hébergé à 3 nœuds (2 stations GPU hétérogènes + un plan de contrôle TrueNAS) servant des LLM de 35B à 122B via llama.cpp sur un LAN — routage à bascule Caddy, maillage Tailscale, tunnel Cloudflare et front-ends conteneurisés (bot Telegram + tableau de bord web). Optimisé un modèle MoE 122B à ~22,5 tok/s sur 48 Go de VRAM grand-public asymétrique (+35 %) en diagnostiquant la RAM hôte — et non la VRAM — comme véritable goulot. Détecté, contenu et corrigé de bout en bout une compromission active de type Cobalt-Strike (C2).",
+        zh: "独立设计、部署并运维一套 3 节点自托管 AI 集群（2 台异构 GPU 工作站 + TrueNAS 控制面），经 llama.cpp 在家庭 LAN 上提供 35B–122B 大模型——Caddy 故障转移路由、Tailscale 网格、Cloudflare 隧道，以及 Docker 化的 Telegram 机器人 + Web 前端。将 122B MoE 模型在 48GB 非对称消费级显存上调到 ~22.5 tok/s（+35%），关键是诊断出主机内存（而非显存）才是真正瓶颈。还端到端检测、遏制并修复了一次真实的 Cobalt-Strike C2 入侵。",
+      },
+      tags: ["llama.cpp", "Multi-GPU", "Caddy failover", "Tailscale", "Incident response", "TrueNAS"],
+    },
     {
       id: "aws-migration", sys: "aws", name: "AWS Enterprise Platform Migration",
       period: { en: "Apr – May 2024", fr: "Avr – Mai 2024", zh: "2024年4–5月" },
@@ -300,11 +310,11 @@ window.SITE_DATA = (function () {
       id: "eeg", sys: "none", name: "EEGToolbox — Neural Signal Analysis",
       period: { en: "Sep 2025 — Present", fr: "Sep 2025 — Présent", zh: "2025年9月 — 至今" },
       blurb: {
-        en: "Automated pipeline for EEG microstate analysis — reducing researcher manual work, GPU-acceleration ready.",
-        fr: "Pipeline automatisé d'analyse de micro-états EEG — réduisant le travail manuel des chercheurs, prêt pour l'accélération GPU.",
-        zh: "用于 EEG 微状态分析的自动化流水线——减少研究人员的手工工作，支持 GPU 加速。",
+        en: "Diagnosed and fixed a results-invalidating bug in a 63-channel EEG microstate pipeline — dropping frontal channels had silently destroyed a canonical brain-state. Rebuilt it with Picard ICA + ICLabel artifact removal and GFP-peak clustering, unified a fragmented two-year cohort to a consistent N=32, and landed a result with four independent methods converging — shipped as reproducible scripts and a written manuscript.",
+        fr: "Diagnostiqué et corrigé un bug invalidant les résultats dans un pipeline de micro-états EEG à 63 canaux — la suppression des canaux frontaux avait silencieusement détruit un état cérébral canonique. Reconstruit avec ICA Picard + suppression d'artefacts ICLabel et clustering sur pics de GFP, unifié une cohorte fragmentée sur deux ans à un N=32 cohérent, avec quatre méthodes indépendantes convergeant vers le même résultat — livré en scripts reproductibles et un manuscrit rédigé.",
+        zh: "诊断并修复了一个 63 通道 EEG 微状态流水线中「使结果失效」的 bug——删除额叶通道悄悄破坏了一个标准脑状态。用 Picard ICA + ICLabel 去伪迹 + GFP 峰聚类重建，将跨两年的碎片化队列统一为一致的 N=32，并得到四种独立方法收敛的结论——以可复现脚本与撰写好的手稿交付。",
       },
-      tags: ["Pipeline", "EEG", "GPU", "Research"],
+      tags: ["Microstates", "Picard ICA · ICLabel", "N=32", "Reproducible", "Manuscript"],
     },
   ];
 
@@ -313,8 +323,8 @@ window.SITE_DATA = (function () {
     { g: { en: "Cloud", fr: "Cloud", zh: "云平台" }, items: ["AWS", "Azure", "Google Cloud", "EC2 · EKS · S3 · RDS", "CloudWatch · KMS · IAM", "AKS · ACR · VNet · Key Vault"] },
     { g: { en: "Containers & DevOps", fr: "Conteneurs & DevOps", zh: "容器与 DevOps" }, items: ["Kubernetes", "Docker", "Helm", "NGINX Ingress", "Terraform · Ansible", "GitLab CI/CD · Jenkins · ArgoCD"] },
     { g: { en: "Monitoring", fr: "Supervision", zh: "监控" }, items: ["Prometheus", "Grafana", "Zabbix", "OpenSearch", "Elastic · Kibana · Logstash", "Graylog · OpenSearch ML"] },
-    { g: { en: "AI & quality", fr: "IA & qualité", zh: "AI 与质量" }, items: ["Prompt engineering", "Generative AI", "AI-assisted system design", "Automated root-cause analysis", "M365 Copilot · Glean", "Quality systems engineering"] },
-    { g: { en: "Security", fr: "Sécurité", zh: "安全" }, items: ["IAM · KMS", "Private registries", "Supply-chain security", "Credential hygiene"] },
+    { g: { en: "AI infrastructure", fr: "Infrastructure IA", zh: "AI 基础设施" }, items: ["Self-hosted LLM serving", "llama.cpp · CUDA", "Multi-GPU / distributed inference", "Inference reliability · failover", "Prompt engineering · GenAI", "MQTT · Home-Assistant observability"] },
+    { g: { en: "Security & reliability", fr: "Sécurité & fiabilité", zh: "安全与可靠性" }, items: ["IAM · KMS", "Supply-chain security", "Private registries", "Incident response · credential rotation", "Graceful degradation"] },
     { g: { en: "Languages & data", fr: "Langages & données", zh: "语言与数据" }, items: ["Python · Go · Bash", "Java · C++ · JS", "SQL · PostgreSQL · Redis", "Node.js · Three.js"] },
   ];
 
