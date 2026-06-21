@@ -149,19 +149,19 @@ window.SITE_DATA = (function () {
     name: "KECHENG YAO",
     code: "ORIGIN",
     title: {
-      en: "Co-founder · Infrastructure / AI Systems Lead",
-      fr: "Cofondateur · Responsable Infrastructure / Systèmes IA",
-      zh: "联合创始人 · 基础设施 / AI 系统负责人",
+      en: "AI Infrastructure & DevOps Engineer · Forward-Deployed",
+      fr: "Ingénieur Infrastructure IA & DevOps · Déploiement avancé",
+      zh: "AI 基础设施 & DevOps 工程师 · 前线交付",
     },
     sub: {
-      en: "DevOps Engineer @ Ericsson — Montréal",
-      fr: "Ingénieur DevOps @ Ericsson — Montréal",
-      zh: "Ericsson DevOps 工程师 — 蒙特利尔",
+      en: "DevOps @ Ericsson · Self-hosted LLM infra @ Telotia — Montréal",
+      fr: "DevOps @ Ericsson · Infra LLM auto-hébergée @ Telotia — Montréal",
+      zh: "Ericsson DevOps · Telotia 自托管 LLM 基础设施 — 蒙特利尔",
     },
     tagline: {
-      en: "I build reliable cloud, DevOps and AI infrastructure for systems that need to be trusted.",
-      fr: "Je construis des infrastructures cloud, DevOps et IA fiables pour des systèmes dignes de confiance.",
-      zh: "我为需要被信任的系统，构建可靠的云、DevOps 与 AI 基础设施。",
+      en: "I deploy and own reliable infrastructure end-to-end — from multi-GPU clusters and self-hosted LLM serving to observability and the last-mile integration that makes AI systems trustworthy in production.",
+      fr: "Je déploie et prends en charge des infrastructures fiables de bout en bout — des clusters multi-GPU et le service de LLM auto-hébergés jusqu'à l'observabilité et l'intégration du dernier kilomètre qui rend les systèmes IA dignes de confiance en production.",
+      zh: "我端到端地部署并掌管可靠的基础设施——从多 GPU 集群、自托管 LLM 推理服务，到可观测性，再到让 AI 系统在生产中真正可信的「最后一公里」集成。",
     },
   };
 
@@ -194,8 +194,8 @@ window.SITE_DATA = (function () {
     ],
     education: [
       {
-        school: "Concordia University", degree: "M.A.Sc · Quality Systems Engineering",
-        meta: { en: "In progress · Power Corporation Grad GCS Scholarship", fr: "En cours · Bourse Power Corporation Grad GCS", zh: "在读 · Power Corporation Grad GCS 奖学金" },
+        school: "Concordia University", degree: "Master · Cybersecurity & Intelligent Systems Engineering (CISE)",
+        meta: { en: "Sep 2025 — Present · Power Corporation Grad GCS Scholarship", fr: "Sep 2025 — Présent · Bourse Power Corporation Grad GCS", zh: "2025年9月 — 至今 · Power Corporation Grad GCS 奖学金" },
       },
       {
         school: "Concordia University", degree: "B.Eng · Computer Engineering",
