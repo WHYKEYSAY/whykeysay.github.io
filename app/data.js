@@ -257,6 +257,26 @@ window.SITE_DATA = (function () {
       tags: ["llama.cpp", "Multi-GPU", "Caddy failover", "Tailscale", "Incident response", "TrueNAS"],
     },
     {
+      id: "aquila", sys: "mlai", name: "Aquila — Local-LLM News & Markets Analyst",
+      period: { en: "2026 — Present", fr: "2026 — Présent", zh: "2026 — 至今" },
+      blurb: {
+        en: "A news- and markets-aware analyst dashboard (Next.js) that runs multi-pass deep-think reasoning — propose → critique → synthesize — on the self-hosted 122B model. Live model-tier selector (122B / 27B / cloud) with automatic node wake-on-demand, fronted by a reliability proxy (keep-warm, auto-retry, graceful failover) that keeps the local LLM responsive in production.",
+        fr: "Un tableau de bord d'analyse orienté actualités et marchés (Next.js) qui exécute un raisonnement « deep-think » multi-passes — proposer → critiquer → synthétiser — sur le modèle 122B auto-hébergé. Sélecteur de palier de modèle en direct (122B / 27B / cloud) avec réveil automatique des nœuds à la demande, derrière un proxy de fiabilité (keep-warm, ré-essai, bascule gracieuse) qui garde le LLM local réactif en production.",
+        zh: "一个面向新闻与市场的分析仪表盘（Next.js），在自托管 122B 模型上执行多轮 deep-think 推理——提出 → 批判 → 综合。带实时三档模型选择器（122B / 27B / 云），节点按需自动唤醒；前面挂一个可靠性代理（保温、自动重试、优雅故障转移），让本地 LLM 在生产中保持响应。",
+      },
+      tags: ["Next.js", "Multi-pass reasoning", "Tier routing", "Reliability proxy", "Self-hosted LLM"],
+    },
+    {
+      id: "corvus", sys: "mlai", name: "Corvus — Telegram AI Steward",
+      period: { en: "2026 — Present", fr: "2026 — Présent", zh: "2026 — 至今" },
+      blurb: {
+        en: "A Telegram bot that operates the Orion cluster in natural language — chat backed by a 3-tier LLM fallback (122B → 27B → cloud), Wake-on-LAN control of GPU nodes over MQTT, and a safe-by-construction command dispatcher (fixed-menu auto-run, confirm-everything-else) for headless ops from a phone.",
+        fr: "Un bot Telegram qui pilote le cluster Orion en langage naturel — chat adossé à un repli LLM à 3 paliers (122B → 27B → cloud), contrôle Wake-on-LAN des nœuds GPU via MQTT, et un répartiteur de commandes sûr par conception (menu fixe auto-exécuté, confirmation pour tout le reste) pour l'exploitation sans interface depuis un téléphone.",
+        zh: "一个用自然语言操控 Orion 集群的 Telegram 机器人——对话由三级 LLM 回退（122B → 27B → 云）支撑，经 MQTT 对 GPU 节点做 Wake-on-LAN 控制，并配一个「设计即安全」的命令派发器（固定菜单自动执行、其余一律先确认），从手机做无头运维。",
+      },
+      tags: ["Telegram", "MQTT · Wake-on-LAN", "3-tier LLM", "Safe dispatch", "Headless ops"],
+    },
+    {
       id: "aws-migration", sys: "aws", name: "AWS Enterprise Platform Migration",
       period: { en: "Apr – May 2024", fr: "Avr – Mai 2024", zh: "2024年4–5月" },
       blurb: {
@@ -361,6 +381,8 @@ window.SITE_DATA = (function () {
     },
     links: [
       { label: "LinkedIn", value: "kecheng-yao", href: "https://www.linkedin.com/in/kecheng-yao/", icon: "linkedin" },
+      { label: "GitHub", value: "whykeysay", href: "https://github.com/whykeysay", icon: "github" },
+      { label: "Email", value: "whykeysay@gmail.com", href: "mailto:whykeysay@gmail.com", icon: "mail" },
       { label: { en: "Location", fr: "Lieu", zh: "位置" }, value: "Montréal · QC · Canada", href: null, icon: "pin" },
     ],
   };
