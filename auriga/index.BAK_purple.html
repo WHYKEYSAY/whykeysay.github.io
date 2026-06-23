@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auriga — Evidence-Closure for Production Deployment</title>
+<meta name="description" content="Auriga verifies production readiness before release: assemble the deployment package, produce an evidence-closure report, and let a human sign off on a complete, verifiable record. Part of the Orion AI-infra ecosystem by Kecheng Yao.">
+<style>
+  :root{--void:#0a0420;--accent:#8A5CFF;--cyan:#3DF0FF;--pink:#FF3DA6;--tx:#e8e6f5;--tx2:#a9a4c7;--tx3:#6f6a90;--rule:#26203f;--card:#120a2e;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:radial-gradient(1200px 700px at 70% -10%,#1a0f3d 0%,var(--void) 55%);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;line-height:1.6;min-height:100vh;-webkit-font-smoothing:antialiased}
+  .mono{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace}
+  .wrap{max-width:880px;margin:0 auto;padding:0 24px}
+  header{display:flex;justify-content:space-between;align-items:center;padding:22px 0;border-bottom:1px solid var(--rule)}
+  .brand{font-size:13px;letter-spacing:.22em;color:var(--tx2)}.brand b{color:var(--accent);font-weight:600}
+  .back{font-size:12px;letter-spacing:.12em;color:var(--tx3);text-decoration:none;border:1px solid var(--rule);padding:7px 12px;transition:.15s}
+  .back:hover{color:var(--accent);border-color:var(--accent)}
+  .hero{padding:72px 0 40px}
+  .eyebrow{font-size:12px;letter-spacing:.28em;color:var(--cyan);text-transform:uppercase;margin-bottom:14px}
+  h1{font-size:clamp(34px,6vw,56px);line-height:1.05;letter-spacing:-.02em;margin-bottom:18px}
+  h1 .g{background:linear-gradient(100deg,var(--accent),var(--cyan));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .lede{font-size:19px;color:var(--tx2);max-width:640px}
+  .cta{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:10px;text-decoration:none;font-size:14px;font-weight:500;transition:.18s}
+  .btn-primary{background:linear-gradient(100deg,var(--accent),#6f43ff);color:#fff}.btn-primary:hover{filter:brightness(1.12);transform:translateY(-1px)}
+  .btn-ghost{border:1px solid var(--rule);color:var(--tx2)}.btn-ghost:hover{border-color:var(--accent);color:var(--tx)}
+  section{padding:34px 0;border-top:1px solid var(--rule)}
+  h2{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:20px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+  .card{background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:20px}
+  .card h3{font-size:16px;margin-bottom:8px;color:var(--tx)}
+  .card p{font-size:14px;color:var(--tx2)}
+  .flow{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-size:13px;color:var(--tx2)}
+  .step{background:var(--card);border:1px solid var(--rule);border-radius:8px;padding:9px 14px}
+  .arrow{color:var(--tx3)}
+  .tags{display:flex;flex-wrap:wrap;gap:8px}
+  .tag{font-size:12px;letter-spacing:.04em;color:var(--tx2);border:1px solid var(--rule);border-radius:999px;padding:5px 12px}
+  footer{padding:34px 0 60px;border-top:1px solid var(--rule);color:var(--tx3);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  footer a{color:var(--tx2);text-decoration:none}footer a:hover{color:var(--accent)}
+  .note{font-size:12px;color:var(--tx3);margin-top:14px}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <span class="brand mono"><b>KY</b> // KECHENG YAO</span>
+      <a class="back mono" href="https://whykeysay.github.io/">&larr; PORTFOLIO</a>
+    </header>
+
+    <div class="hero">
+      <p class="eyebrow mono">Orion ecosystem · release gate</p>
+      <h1>Auriga — <span class="g">evidence-closure</span> for production deployment</h1>
+      <p class="lede">Production readiness, verified before release. A human signs; Auriga verifies completeness — assembling the deployment package and producing an auditable evidence-closure report so nothing ships on an unproven claim.</p>
+      <div class="cta">
+        <a class="btn btn-primary" href="https://auriga-dev.telotia.com/" target="_blank" rel="noopener noreferrer">Open live demo →</a>
+        <a class="btn btn-ghost" href="https://whykeysay.github.io/" >Back to portfolio</a>
+      </div>
+      <p class="note mono">Live app is a Next.js service (dynamic) — this page is its public overview. The demo opens the running instance.</p>
+    </div>
+
+    <section>
+      <h2>What it does</h2>
+      <div class="grid">
+        <div class="card"><h3>Deployment Package</h3><p>Assembles the artifacts, configs and checks that define a release into one coherent, reviewable package.</p></div>
+        <div class="card"><h3>Evidence-Closure Report</h3><p>Turns "is this ready?" into a verifiable record — every readiness claim backed by evidence, gaps flagged before they reach production.</p></div>
+        <div class="card"><h3>Human sign-off</h3><p>Auriga verifies completeness; a person signs. The gate keeps accountability with the engineer while removing the guesswork.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>The gate</h2>
+      <div class="flow mono">
+        <span class="step">Deployment package</span><span class="arrow">→</span>
+        <span class="step">Readiness checks</span><span class="arrow">→</span>
+        <span class="step">Evidence closure</span><span class="arrow">→</span>
+        <span class="step">Human signs</span><span class="arrow">→</span>
+        <span class="step" style="border-color:var(--accent);color:var(--cyan)">Ship</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>Stack &amp; context</h2>
+      <div class="tags">
+        <span class="tag">Next.js</span><span class="tag">TypeScript</span><span class="tag">Docker</span>
+        <span class="tag">Cloudflare Tunnel</span><span class="tag">Part of the Orion AI-infra cluster</span>
+      </div>
+      <p class="note">Auriga is one of the apps served from Orion — a self-hosted AI/infra cluster (122B LLM serving, Caddy failover, Tailscale) built and operated by Kecheng Yao. See <a href="https://whykeysay.github.io/" style="color:var(--accent)">the portfolio</a> for the full system.</p>
+    </section>
+
+    <footer>
+      <span>Auriga · by Kecheng Yao · Montréal</span>
+      <span><a href="https://whykeysay.github.io/">Portfolio</a> · <a href="https://auriga-dev.telotia.com/" target="_blank" rel="noopener noreferrer">Live demo</a> · <a href="https://www.linkedin.com/in/kecheng-yao/" target="_blank" rel="noopener noreferrer">LinkedIn</a></span>
+    </footer>
+  </div>
+</body>
+</html>
