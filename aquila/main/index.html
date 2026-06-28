@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aquila — A 122B Mind on the Markets</title>
+<meta name="description" content="Aquila is an AI research dashboard for finance: DeepThink reasoning and DeepSearch over live news, screeners, and your watchlist — backed by a self-hosted 122B model, not a third-party API. Part of the Orion AI-infra ecosystem.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,450;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0a0e1f;
+    --text:#EDEFFB; --text-2:#C2C8E0; --text-3:#9098B8;
+    --rose:#DEA193; --rose-glow:#F6CDB4; --nebula:#7E9BFF; --violet:#A98CF0; --teal:#67D6D0; --magenta:#E58BC4;
+    --glass:rgba(255,255,255,.055); --glass-2:rgba(255,255,255,.085); --glass-edge:rgba(255,255,255,.12);
+    --display:"Newsreader",Georgia,serif; --sans:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+    --r:22px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--ink);color:var(--text);font-family:var(--sans);line-height:1.62;font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  em{font-family:var(--display);font-style:italic;font-weight:380}
+  .wrap{max-width:940px;margin:0 auto;padding:0 28px}
+
+  /* ── the diffuse field — soft colour clouds over the whole page ── */
+  .field{position:fixed;inset:0;z-index:-2;background:var(--ink);overflow:hidden}
+  .field::before,.field::after{content:"";position:absolute;inset:-20%;background:
+    radial-gradient(38rem 38rem at 78% 6%, rgba(222,161,147,.42), transparent 60%),
+    radial-gradient(42rem 42rem at 12% 24%, rgba(126,155,255,.40), transparent 60%),
+    radial-gradient(40rem 40rem at 86% 52%, rgba(169,140,240,.38), transparent 62%),
+    radial-gradient(34rem 34rem at 22% 70%, rgba(103,214,208,.26), transparent 60%),
+    radial-gradient(38rem 38rem at 70% 92%, rgba(229,139,196,.30), transparent 62%),
+    radial-gradient(46rem 46rem at 40% 46%, rgba(126,155,255,.18), transparent 65%);
+    filter:blur(36px)}
+  .field::after{opacity:.5;mix-blend-mode:screen;animation:drift 34s ease-in-out infinite alternate}
+  @keyframes drift{from{transform:translate3d(-2%,-1%,0) scale(1.02)}to{transform:translate3d(2%,2%,0) scale(1.08)}}
+  .grain{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;
+    background:radial-gradient(circle at 30% 20%,rgba(10,14,31,0) 0%,rgba(10,14,31,.35) 70%,rgba(10,14,31,.7) 100%)}
+  @media (prefers-reduced-motion:reduce){.field::after{animation:none}}
+
+  /* ── nav ── */
+  nav{position:relative;z-index:3;display:flex;justify-content:space-between;align-items:center;padding:22px 0}
+  .wordmark{font-family:var(--mono);font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--text-2)}
+  .wordmark b{color:var(--rose-glow);font-weight:500}
+  .back{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-decoration:none;color:var(--text-3);border:1px solid var(--glass-edge);border-radius:999px;padding:8px 15px;backdrop-filter:blur(10px);transition:.18s}
+  .back:hover{color:var(--rose-glow);border-color:var(--rose)}
+
+  /* ── hero ── */
+  .hero{position:relative;z-index:3;padding:84px 0 96px;max-width:720px}
+  .constellation{position:absolute;top:-10px;right:-40px;width:320px;height:300px;pointer-events:none;opacity:.85}
+  .constellation .lnk{stroke:#cdd6ff;stroke-width:.6;opacity:.4}
+  .constellation .st{fill:#fff}.constellation .altair{fill:var(--rose-glow)}
+  @keyframes tw{0%,100%{opacity:.55}50%{opacity:1}}.constellation .tw{animation:tw 5s ease-in-out infinite}
+  @media (prefers-reduced-motion:reduce){.tw{animation:none}}
+  .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--rose-glow);margin-bottom:24px}
+  h1{font-family:var(--display);font-weight:340;font-size:clamp(40px,6.6vw,70px);line-height:1.03;letter-spacing:-.02em;color:#fff;margin-bottom:26px}
+  h1 .g{background:linear-gradient(100deg,var(--rose-glow),var(--nebula) 60%,var(--violet));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-style:italic;font-weight:300}
+  .lede{font-size:19px;font-weight:300;color:var(--text-2);max-width:600px;line-height:1.66}
+  .lede b{font-weight:450;color:#fff}
+  .cta{display:flex;gap:14px;margin-top:38px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:13px;letter-spacing:.03em;padding:14px 24px;border-radius:999px;text-decoration:none;transition:.2s;border:1px solid transparent}
+  .btn-primary{background:linear-gradient(100deg,var(--rose),var(--rose-glow));color:#241310;font-weight:500;box-shadow:0 8px 32px -8px rgba(222,161,147,.5)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 40px -10px rgba(222,161,147,.6)}
+  .btn-ghost{border-color:var(--glass-edge);color:var(--text-2);backdrop-filter:blur(10px)}
+  .btn-ghost:hover{color:#fff;border-color:var(--rose)}
+  .kernel-note{font-family:var(--mono);font-size:11.5px;color:var(--text-3);margin-top:26px;line-height:1.7;max-width:560px}
+
+  /* ── sections (all on the same diffuse field — no white) ── */
+  section.band{position:relative;z-index:2;padding:60px 0}
+  .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--rose-glow);margin-bottom:14px}
+  h2{font-family:var(--display);font-weight:380;font-size:clamp(26px,3.6vw,36px);letter-spacing:-.01em;color:#fff;margin-bottom:30px;line-height:1.14}
+
+  /* frosted glass cards */
+  .card,.gate,.assess>div,.tag{backdrop-filter:blur(22px) saturate(1.3);-webkit-backdrop-filter:blur(22px) saturate(1.3)}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .card{background:var(--glass);border:1px solid var(--glass-edge);border-radius:var(--r);padding:26px 24px;transition:.2s}
+  .card:hover{background:var(--glass-2);transform:translateY(-3px)}
+  .card .n{font-family:var(--mono);font-size:11px;color:var(--rose);letter-spacing:.1em}
+  .card h3{font-family:var(--display);font-weight:500;font-size:20px;margin:9px 0 11px;color:#fff}
+  .card p{font-size:14.5px;color:var(--text-2);line-height:1.62;font-weight:300}
+
+  /* the flow */
+  .gate{display:flex;align-items:stretch;flex-wrap:wrap;background:var(--glass);border:1px solid var(--glass-edge);border-radius:var(--r);overflow:hidden}
+  .step{flex:1 1 0;min-width:140px;padding:22px 20px;border-right:1px solid var(--glass-edge)}
+  .step:last-child{border-right:0}
+  .step .si{font-family:var(--mono);font-size:10.5px;color:var(--text-3);letter-spacing:.1em}
+  .step .sl{font-family:var(--display);font-size:17px;color:var(--text);margin-top:6px;line-height:1.2}
+  .step.ship{background:linear-gradient(135deg,rgba(126,155,255,.35),rgba(169,140,240,.3))}
+  .step.ship .sl{color:#fff;font-style:italic}
+
+  .tags{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px}
+  .tag{font-family:var(--mono);font-size:12px;color:var(--text-2);border:1px solid var(--glass-edge);border-radius:999px;padding:8px 15px;background:var(--glass)}
+  .ctx{font-size:15px;color:var(--text-2);max-width:660px;line-height:1.66;font-weight:300}
+  .ctx a{color:var(--rose-glow);text-decoration:underline;text-underline-offset:2px;text-decoration-color:rgba(246,205,180,.4)}
+
+  /* honest assessment */
+  .assess{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .assess>div{background:var(--glass);border:1px solid var(--glass-edge);border-radius:var(--r);padding:24px 24px}
+  .assess h4{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px}
+  .assess .does h4{color:var(--teal)}
+  .assess .not h4{color:var(--rose)}
+  .assess li{list-style:none;font-size:14.5px;color:var(--text-2);padding:7px 0 7px 18px;position:relative;line-height:1.55;font-weight:300}
+  .assess .does li::before{content:"—";position:absolute;left:0;color:var(--teal)}
+  .assess .not li::before{content:"—";position:absolute;left:0;color:var(--rose)}
+
+  footer{position:relative;z-index:2;padding:48px 0 60px}
+  footer .frow{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+  footer span,footer a{font-family:var(--mono);font-size:12px;color:var(--text-3);letter-spacing:.04em}
+  footer a{text-decoration:none;transition:.15s}
+  footer a:hover{color:var(--rose-glow)}
+
+  @media (max-width:680px){
+    .grid{grid-template-columns:1fr}.assess{grid-template-columns:1fr}
+    .step{border-right:0;border-bottom:1px solid var(--glass-edge)}.step.ship{border-bottom:0}
+    .constellation{opacity:.4;right:-90px}.hero{padding:56px 0 64px}
+  }
+</style>
+</head>
+<body>
+  <div class="field"></div>
+  <div class="grain"></div>
+
+  <div class="wrap">
+    <nav>
+      <span class="wordmark"><b>KY</b> · Kecheng Yao</span>
+      <a class="back" href="https://whykeysay.github.io/">&larr; PORTFOLIO</a>
+    </nav>
+
+    <div class="hero">
+      <svg class="constellation" viewBox="0 0 320 300" aria-hidden="true">
+        <line class="lnk" x1="186" y1="150" x2="210" y2="70"/><line class="lnk" x1="210" y1="70" x2="236" y2="36"/>
+        <line class="lnk" x1="186" y1="150" x2="168" y2="214"/><line class="lnk" x1="168" y1="214" x2="150" y2="262"/>
+        <line class="lnk" x1="186" y1="150" x2="120" y2="132"/><line class="lnk" x1="186" y1="150" x2="252" y2="172"/>
+        <circle class="st altair tw" cx="186" cy="150" r="3.6"/><circle class="st tw" cx="210" cy="70" r="2.2" style="animation-delay:.7s"/>
+        <circle class="st tw" cx="236" cy="36" r="1.7" style="animation-delay:1.5s"/><circle class="st tw" cx="168" cy="214" r="2.3" style="animation-delay:1.1s"/>
+        <circle class="st tw" cx="150" cy="262" r="1.6" style="animation-delay:2.4s"/><circle class="st tw" cx="120" cy="132" r="1.9" style="animation-delay:1.9s"/>
+        <circle class="st tw" cx="252" cy="172" r="1.8" style="animation-delay:2.9s"/>
+      </svg>
+      <p class="eyebrow">Orion ecosystem · markets dashboard</p>
+      <h1>Aquila puts a 122B mind on the <span class="g">markets</span>.</h1>
+      <p class="lede"><b>An AI research dashboard for finance.</b> Aquila runs DeepThink reasoning and DeepSearch over live news, screeners, and your watchlist — backed by a <b>self-hosted 122B model</b> on the Orion cluster, not a third-party API. Research a name, see the evidence, decide for yourself.</p>
+      <div class="cta">
+        <a class="btn btn-primary" href="https://whykeysay.github.io/aquila/app" target="_blank" rel="noopener noreferrer">Open the live app →</a>
+        <a class="btn btn-ghost" href="https://whykeysay.github.io/">Back to portfolio</a>
+      </div>
+      <p class="kernel-note">The live app is a running Next.js service — this page is its public overview. The named star is <em>Altair</em>, the brightest in Aquila, the eagle that carries the reasoning aloft.</p>
+    </div>
+  </div>
+
+  <section class="band">
+    <div class="wrap">
+      <p class="kicker">What it does</p>
+      <h2>Reasoning, search, and a working surface.</h2>
+      <div class="grid">
+        <div class="card"><span class="n">01</span><h3>DeepThink</h3><p>Turns a ticker or thesis into a reasoned brief. The cluster's 122B works the question end-to-end — drivers, risks, the bull and bear case — and shows the evidence behind each claim.</p></div>
+        <div class="card"><span class="n">02</span><h3>DeepSearch</h3><p>Multi-source market search that fans out, fetches, and de-duplicates — so a question pulls from many sources at once instead of one, with the links kept.</p></div>
+        <div class="card"><span class="n">03</span><h3>News · Screener · Watchlist</h3><p>The day-to-day surface: track the names you care about, filter by what matters, and stay current — with DeepThink one click away from any of them.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <p class="kicker">The flow</p>
+      <h2>From a question to a thesis.</h2>
+      <div class="gate">
+        <div class="step"><div class="si">01</div><div class="sl">Screen &amp; watch</div></div>
+        <div class="step"><div class="si">02</div><div class="sl">DeepSearch</div></div>
+        <div class="step"><div class="si">03</div><div class="sl">DeepThink</div></div>
+        <div class="step"><div class="si">04</div><div class="sl">Evidence &amp; sources</div></div>
+        <div class="step ship"><div class="si">→</div><div class="sl">You decide</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <p class="kicker">Stack &amp; context</p>
+      <h2>One app served from the cluster.</h2>
+      <div class="tags">
+        <span class="tag">Next.js 16</span><span class="tag">TypeScript</span><span class="tag">Docker</span>
+        <span class="tag">Cloudflare Tunnel</span><span class="tag">Self-hosted 122B</span><span class="tag">Orion AI-infra cluster</span>
+      </div>
+      <p class="ctx">Aquila is one of the apps served from <b>Orion</b> — a self-hosted AI/infra cluster (122B LLM serving, Caddy failover, Tailscale mesh) built and operated by Kecheng Yao. The reasoning runs on the cluster's own model, so research isn't billed per token to an outside provider. See <a href="https://whykeysay.github.io/">the portfolio</a> for the full system.</p>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <p class="kicker">Honest assessment</p>
+      <h2>What it does — and what it does not.</h2>
+      <div class="assess">
+        <div class="does">
+          <h4>It does</h4>
+          <ul>
+            <li>Run a self-hosted 122B over live market data, and keep the sources behind every claim.</li>
+            <li>Put reasoning, multi-source search, and a screener/watchlist in one place.</li>
+            <li>Make the research auditable — you see <em>why</em>, not just a verdict.</li>
+          </ul>
+        </div>
+        <div class="not">
+          <h4>It does not</h4>
+          <ul>
+            <li>Give financial advice. It surfaces evidence; the decision — and the risk — stays with you.</li>
+            <li>Guarantee real-time tick accuracy or replace a professional data terminal.</li>
+            <li>Claim production scale yet. It runs as a single self-hosted service on the cluster.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="frow">
+        <span>Aquila · by Kecheng Yao · Montréal</span>
+        <span>
+          <a href="https://whykeysay.github.io/">Portfolio</a> ·
+          <a href="https://whykeysay.github.io/aquila/app" target="_blank" rel="noopener noreferrer">Live app</a> ·
+          <a href="https://www.linkedin.com/in/kecheng-yao/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

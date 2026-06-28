@@ -154,9 +154,9 @@ window.SITE_DATA = (function () {
       zh: "AI 基础设施 & DevOps 工程师 · 前线交付",
     },
     sub: {
-      en: "DevOps @ Ericsson · Self-hosted LLM infra @ Telotia — Montréal",
-      fr: "DevOps @ Ericsson · Infra LLM auto-hébergée @ Telotia — Montréal",
-      zh: "Ericsson DevOps · Telotia 自托管 LLM 基础设施 — 蒙特利尔",
+      en: "DevOps @ Ericsson · Self-hosted LLM infra — Montréal",
+      fr: "DevOps @ Ericsson · Infra LLM auto-hébergée — Montréal",
+      zh: "Ericsson DevOps · 自托管 LLM 基础设施 — 蒙特利尔",
     },
     tagline: {
       en: "I deploy and own reliable infrastructure end-to-end — from multi-GPU clusters and self-hosted LLM serving to observability and the last-mile integration that makes AI systems trustworthy in production.",
