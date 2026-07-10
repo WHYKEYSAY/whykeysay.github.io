@@ -17,47 +17,58 @@
     --display:"Newsreader",Georgia,serif; --sans:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--ink);color:var(--text);font-family:var(--sans);line-height:1.62;font-weight:300;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
-  .field{position:fixed;inset:0;z-index:-1;background:
+  html,body{height:100%}
+  body{background:var(--ink);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;overflow:hidden}
+  nav{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;flex:0 0 auto;background:rgba(10,14,31,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--glass-edge);z-index:2}
+  .wordmark{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--text-2)}
+  .wordmark b{color:var(--rose-glow);font-weight:500}
+  .nav-links{display:flex;align-items:center;gap:10px}
+  .back,.direct{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-decoration:none;color:var(--text-3);border:1px solid var(--glass-edge);border-radius:999px;padding:7px 13px;transition:.18s;white-space:nowrap}
+  .back:hover,.direct:hover{color:var(--rose-glow);border-color:var(--rose)}
+  .frame-wrap{flex:1 1 auto;position:relative;min-height:0}
+  iframe{width:100%;height:100%;border:0;display:block;background:var(--ink)}
+  .fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px;gap:16px;background:
     radial-gradient(38rem 38rem at 78% 6%, rgba(222,161,147,.4), transparent 60%),
     radial-gradient(42rem 42rem at 12% 24%, rgba(126,155,255,.36), transparent 60%),
     var(--ink)}
-  .wrap{max-width:640px;margin:0 auto;padding:0 28px;flex:1;display:flex;flex-direction:column}
-  nav{display:flex;justify-content:space-between;align-items:center;padding:22px 0}
-  .wordmark{font-family:var(--mono);font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--text-2)}
-  .wordmark b{color:var(--rose-glow);font-weight:500}
-  .back{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-decoration:none;color:var(--text-3);border:1px solid var(--glass-edge);border-radius:999px;padding:8px 15px;transition:.18s}
-  .back:hover{color:var(--rose-glow);border-color:var(--rose)}
-  main{flex:1;display:flex;flex-direction:column;justify-content:center;padding:40px 0}
-  .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--rose-glow);margin-bottom:20px}
-  h1{font-family:var(--display);font-weight:340;font-size:clamp(32px,6vw,48px);letter-spacing:-.02em;color:#fff;margin-bottom:18px}
-  p{font-size:16px;color:var(--text-2);max-width:520px;line-height:1.66;margin-bottom:14px}
-  .cta{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap}
-  .btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:13px;padding:14px 24px;border-radius:999px;text-decoration:none;transition:.2s;border:1px solid transparent}
-  .btn-primary{background:linear-gradient(100deg,var(--rose),var(--rose-glow));color:#241310;font-weight:500;box-shadow:0 8px 32px -8px rgba(222,161,147,.5)}
-  .btn-primary:hover{transform:translateY(-2px)}
-  .btn-ghost{border-color:var(--glass-edge);color:var(--text-2)}
-  .btn-ghost:hover{color:#fff;border-color:var(--rose)}
-  .note{font-family:var(--mono);font-size:11.5px;color:var(--text-3);margin-top:28px;line-height:1.7}
+  .fallback .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--rose-glow)}
+  .fallback h1{font-family:var(--display);font-weight:340;font-size:clamp(24px,4vw,34px);color:#fff}
+  .fallback p{font-size:14.5px;color:var(--text-2);max-width:460px;line-height:1.6}
+  .btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:13px;padding:13px 22px;border-radius:999px;text-decoration:none;transition:.2s;background:linear-gradient(100deg,var(--rose),var(--rose-glow));color:#241310;font-weight:500;box-shadow:0 8px 32px -8px rgba(222,161,147,.5)}
+  .btn:hover{transform:translateY(-2px)}
 </style>
 </head>
 <body>
-<div class="field"></div>
-<div class="wrap">
-  <nav>
-    <span class="wordmark">AQUILA · <b>LIVE</b></span>
+<nav>
+  <span class="wordmark">AQUILA · <b>LIVE</b></span>
+  <div class="nav-links">
+    <a class="direct" href="https://aquila-dev.telotia.com/" target="_blank" rel="noopener noreferrer">Open directly ↗</a>
     <a class="back" href="../">← Overview</a>
-  </nav>
-  <main>
+  </div>
+</nav>
+<div class="frame-wrap">
+  <iframe id="live-frame" src="https://aquila-dev.telotia.com/" title="Aquila live dashboard" loading="eager" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  <div class="fallback" id="fallback" hidden>
     <div class="eyebrow">Stable entry point</div>
-    <h1>Open the live dashboard</h1>
+    <h1>The tunnel looks offline</h1>
     <p>Aquila runs on personal hardware behind a tunnel, not a hosted platform — so it's occasionally offline for maintenance or restarts. This page is the durable link; it doesn't move even if the tunnel does.</p>
-    <div class="cta">
-      <a class="btn btn-primary" href="https://aquila-dev.telotia.com/" target="_blank" rel="noopener noreferrer">Open the live app →</a>
-      <a class="btn btn-ghost" href="../">Back to overview</a>
-    </div>
-    <p class="note">If the link doesn't load, the app is temporarily offline — try again shortly, or see the <a href="../" style="color:var(--rose-glow)">overview</a> for what it does.</p>
-  </main>
+    <a class="btn" href="https://aquila-dev.telotia.com/" target="_blank" rel="noopener noreferrer">Try opening directly →</a>
+  </div>
 </div>
+<script>
+  // Cross-origin iframes don't reliably report load failures to JS, so this is a heuristic:
+  // if the iframe's window is still same-origin-blocked-empty after a timeout, assume it's up
+  // (that's the expected state for a healthy cross-origin embed); if the tunnel is actually down,
+  // most browsers show a native "can't connect" page which DOES still fire onload, so we can't
+  // detect that reliably either -- hence the always-visible "Open directly" link in the nav above
+  // is the real safety net, this timeout fallback is just a best-effort extra.
+  var frame = document.getElementById('live-frame');
+  var fallback = document.getElementById('fallback');
+  var loaded = false;
+  frame.addEventListener('load', function(){ loaded = true; });
+  setTimeout(function(){
+    if (!loaded) { fallback.hidden = false; }
+  }, 8000);
+</script>
 </body>
 </html>
