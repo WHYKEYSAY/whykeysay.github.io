@@ -1,7 +1,10 @@
 'use strict';
 (() => {
   const MAX = 5 * 1024 * 1024, LABEL = 'cygnus-pages-sealed.v1';
-  const URL = 'https://raw.githubusercontent.com/WHYKEYSAY/whykeysay.github.io/cygnus-data/cygnus/payload.enc.json';
+  const BRANCH_API = 'https://api.github.com/repos/WHYKEYSAY/whykeysay.github.io/git/ref/heads/cygnus-data';
+  const RAW_PREFIX = 'https://raw.githubusercontent.com/WHYKEYSAY/whykeysay.github.io/';
+  const POLL_MS = 300000, MANUAL_MS = 60000;
+  let currentCommit = null, lastAttempt = -Infinity, retryAfter = 0;
   const enc = new TextEncoder(), dec = new TextDecoder('utf-8', {fatal:true});
   const $ = id => document.getElementById(id);
   let privateKey = null, recipientId = null, generation = 0, timer = null, freshnessTimer = null, active = null;
@@ -26,8 +29,8 @@
     $('status').dataset.stale = String(stale);
     $('last-failure').textContent = failure ? 'Last refresh failed; the prior snapshot remains visible and stale.' : '';
   }
-  async function readJSON(response) {
-    if (!response.ok || response.redirected || !response.body || Number(response.headers.get('content-length') || 0) > MAX) throw Error('Unavailable');
+  async function readJSON(response, limit = MAX) {
+    if (!response.ok || response.redirected || !response.body || Number(response.headers.get('content-length') || 0) > limit) throw Error('Unavailable');
     const reader = response.body.getReader(), chunks = [];
     let count = 0;
     try {
@@ -35,7 +38,7 @@
         const {done,value} = await reader.read();
         if (done) break;
         count += value.byteLength;
-        if (count > MAX) throw Error('Oversized publication');
+        if (count > limit) throw Error('Oversized publication');
         chunks.push(value);
       }
     } catch (e) { await reader.cancel(); throw e; }
@@ -82,20 +85,42 @@
   }
   async function pull() {
     if (!privateKey || pulling) return;
+    const eligible = Math.max(lastAttempt + MANUAL_MS, retryAfter);
+    if (Date.now() < eligible) {
+      $('next-check').textContent = `Next check available ${new Date(eligible).toISOString()}.`;
+      return;
+    }
+    lastAttempt = Date.now();
     const attempt = generation, key = privateKey, id = recipientId;
     const controller = new AbortController(); active = controller; pulling = true;
-    $('refresh').disabled = true;
+    $('refresh').disabled = true; $('next-check').textContent = 'Checking published commit…';
     const timeout = setTimeout(() => controller.abort(),10000);
+    const options = {credentials:'omit',cache:'no-store',redirect:'error',referrerPolicy:'no-referrer',signal:controller.signal};
     try {
-      const response = await fetch(URL,{credentials:'omit',cache:'no-store',redirect:'error',referrerPolicy:'no-referrer',signal:controller.signal});
-      if (response.url && response.url !== URL) throw Error('Unexpected endpoint');
-      const envelope = await readJSON(response);
+      const refResponse = await fetch(BRANCH_API,options);
+      if (refResponse.url !== BRANCH_API) throw Error('Unexpected ref endpoint');
+      const ref = await readJSON(refResponse,16384);
       if (attempt !== generation) return;
-      const bundle = await decrypt(envelope,key,id);
-      if (attempt !== generation) return;
-      display(bundle);
+      if (ref.ref !== 'refs/heads/cygnus-data' || ref.object?.type !== 'commit' || typeof ref.object.sha !== 'string' || !/^[a-f0-9]{40}$/.test(ref.object.sha)) throw Error('Invalid branch ref');
+      const commit = ref.object.sha;
+      if (commit !== currentCommit) {
+        const url = RAW_PREFIX + commit + '/cygnus/payload.enc.json';
+        const response = await fetch(url,options);
+        if (response.url !== url) throw Error('Unexpected data endpoint');
+        const envelope = await readJSON(response);
+        if (attempt !== generation) return;
+        const bundle = await decrypt(envelope,key,id);
+        if (attempt !== generation) return;
+        display(bundle); currentCommit = commit;
+      } else { failure = ''; status(); }
+      retryAfter = 0;
+      $('next-check').textContent = 'Automatic checks run every five minutes while enabled; manual checks are limited to once a minute.';
     } catch (_) {
-      if (attempt === generation) { failure = 'Refresh unavailable or publication rejected'; status(); }
+      if (attempt === generation) {
+        retryAfter = Date.now() + POLL_MS;
+        failure = 'Refresh unavailable or publication rejected'; status();
+        $('next-check').textContent = `Next retry available ${new Date(retryAfter).toISOString()}.`;
+      }
     } finally {
       clearTimeout(timeout);
       if (attempt === generation) { active = null; pulling = false; $('refresh').disabled = false; }
@@ -103,15 +128,15 @@
   }
   function schedule() {
     clearInterval(timer); timer = null;
-    if (privateKey && $('automatic').checked) timer = setInterval(pull,60000);
+    if (privateKey && $('automatic').checked) timer = setInterval(pull,POLL_MS);
   }
   function lock() {
     generation++; clearInterval(timer); clearInterval(freshnessTimer); timer = freshnessTimer = null;
     if (active) active.abort(); active = null;
-    privateKey = null; recipientId = null; current = null; failure = ''; pulling = false;
+    privateKey = null; recipientId = null; current = null; currentCommit = null; failure = ''; pulling = false;
     const frame = $('frame-slot').querySelector('iframe');
     if (frame) { frame.removeAttribute('srcdoc'); frame.src = 'about:blank'; frame.remove(); }
-    $('frame-slot').replaceChildren(); $('status').textContent = ''; $('last-failure').textContent = '';
+    $('frame-slot').replaceChildren(); $('status').textContent = ''; $('last-failure').textContent = ''; $('next-check').textContent = '';
     $('viewer').hidden = true; $('gate').hidden = false; $('footer').hidden = false;
     $('password').value = ''; $('error').textContent = ''; $('password').removeAttribute('aria-invalid'); $('password').focus();
   }
