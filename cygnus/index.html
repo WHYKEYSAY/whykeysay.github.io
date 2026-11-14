@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'sha256-0v34D1v9QCiWfASZs7F4tAVXB0u26QHYEpuqwWilgvI='; connect-src 'self'; frame-src 'self' about: blob:; base-uri 'none'; object-src 'none'; form-action 'none'">
+  <title>Cygnus · Private snapshot</title>
+  <link rel="stylesheet" href="./shell.css">
+  <script src="./shell.js" defer></script>
+</head>
+<body>
+  <header class="masthead"><a class="brand" href="./" aria-label="Cygnus home"><span class="brand-mark" aria-hidden="true">✳</span> CYGNUS</a><span class="privacy-label"><span></span> ENCRYPTED SNAPSHOT</span></header>
+  <main id="gate">
+    <section class="unlock-card" aria-labelledby="title">
+      <div class="eyebrow">A PRIVATE VIEW</div>
+      <h1 id="title">Your perspective.<br><span>Under your key.</span></h1>
+      <p class="intro">Unlock an encrypted, read-only snapshot of Cygnus.</p>
+      <form id="unlock-form">
+        <label for="password">Snapshot password</label>
+        <div class="input-wrap"><input id="password" type="password" autocomplete="current-password" required aria-describedby="error" spellcheck="false"><span aria-hidden="true">↳</span></div>
+        <button id="unlock" type="submit"><span>Unlock snapshot</span><span aria-hidden="true">↗</span></button>
+        <p id="error" class="error" role="alert" aria-live="polite"></p>
+      </form>
+      <div class="local-note"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3"/></svg><p>Decrypted in this browser.<br>Your password is never saved or sent.</p></div>
+    </section>
+    <aside class="orbit" aria-hidden="true"><div class="orbit-ring ring-one"></div><div class="orbit-ring ring-two"></div><div class="orbit-ring ring-three"></div><div class="orbit-core">C</div><div class="orbit-dot"></div><span class="orbit-caption">CLARITY, HELD PRIVATELY.</span></aside>
+  </main>
+  <section id="viewer" hidden aria-label="Unlocked snapshot"><div class="viewer-bar"><span>READ-ONLY SNAPSHOT</span><button type="button" id="lock">Lock snapshot <span aria-hidden="true">↗</span></button></div><div id="frame-slot"></div></section>
+  <footer id="footer"><span>PRIVATE BY DESIGN</span><p>A saved snapshot, independent of the live NAS.</p><span>CYGNUS / PERSONAL</span></footer>
+</body>
+</html>
