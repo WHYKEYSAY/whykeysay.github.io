@@ -60,6 +60,9 @@
       <div class="select-title">${L(D.hero.title)}</div>
       <div class="select-h">${T('selectFighter')}</div>
       <div class="select-sub">${T('selectSub')}</div>`;
+    const aries = el("a", "aries-entry", `<span>ARIES</span><strong>${L({en:"Your personal workspace",fr:"Votre espace personnel",zh:"你的个人助手工作台"})}</strong><small>${L({en:"Research, memory, tasks and home — explore the workspace",fr:"Recherche, mémoire, tâches et maison — ouvrir l’espace",zh:"研究、记忆、任务与家庭 · 打开工作台"})} ${ICON.arrow}</small>`);
+    aries.href = "/aries/";
+    wrap.appendChild(aries);
     const grid = el("div", "fighters");
     D.fighters.forEach((f) => {
       const cvar = FCOLOR[f.id];
@@ -103,12 +106,14 @@
   function buildTopbar() {
     const tb = $("#topbar");
     tb.innerHTML = "";
-    tb.appendChild(el("div", "tb-mark", `<b>KY</b> // KECHENG YAO`));
+    tb.appendChild(el("div", "tb-mark", `<b>KY</b><span class="tb-owner"> // KECHENG YAO</span>`));
     const right = el("div", "tb-right");
     const extlinks = el("div", "tb-links");
-    [["Cygnus", "https://whykeysay.github.io/cygnus/"]].forEach(([name, url]) => {
+    [["Aries", "/aries/"], ["Cygnus", "https://whykeysay.github.io/cygnus/"]].forEach(([name, url]) => {
       const a = el("a", "tb-link", name);
-      a.href = url; a.target = "_blank"; a.rel = "noopener noreferrer";
+      a.href = url;
+      if (name === "Cygnus") { a.target = "_blank"; a.rel = "noopener noreferrer"; }
+      else { a.classList.add("tb-link-primary"); a.setAttribute("aria-label", "Aries · Personal workspace"); }
       extlinks.appendChild(a);
     });
     right.appendChild(extlinks);

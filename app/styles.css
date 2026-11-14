@@ -240,6 +240,14 @@ a { color: inherit; text-decoration: none; }
   padding: 6px 11px; transition: color 140ms, border-color 140ms;
 }
 .tb-link:hover { color: var(--accent); border-color: var(--accent); }
+.tb-link-primary { color: #b3eddb; border-color: #4b8078; background: #152c2d; }
+.aries-entry { display: grid; gap: 7px; margin: 24px 0; padding: 20px 24px; border: 1px solid #396761; background: linear-gradient(110deg,#13272b,#101226); color: #c4f1e4; text-decoration: none; text-align: left; }
+.aries-entry > span { font: 10px var(--font-mono); letter-spacing: .22em; color: #92cbbb; }
+.aries-entry > strong { font-size: clamp(17px,3vw,22px); font-weight: 500; }
+.aries-entry > small { font: 11px/1.6 var(--font-mono); color: #a8b6c9; }
+.aries-entry svg { vertical-align: middle; }
+.aries-entry:hover, .aries-entry:focus-visible { border-color: #b3eddb; outline: 2px solid #b3eddb; outline-offset: 3px; }
+@media(max-width:560px){.tb-owner{display:none}.tb-right{gap:6px}.tb-links{gap:5px}.aries-entry{padding:16px 18px}}
 @media (max-width: 560px) { .tb-link { padding: 6px 8px; font-size: 10px; } }
 
 /* ─── content column ───────────────────────────────────────────────────── */
