@@ -8,7 +8,7 @@
     fr:{back:'Retour à l’accueil',private:'ESPACE PRIVÉ',eyebrow:'BIENVENUE DANS ARIES',title:'Votre espace Aries,<br><span>en toute intimité.</span>',intro:'Utilisez le même mot de passe que Cygnus pour ouvrir votre espace.',password:'Mot de passe de l’espace',unlock:'Ouvrir Aries',note:'Déchiffré uniquement dans ce navigateur. Cette page ne conserve ni ne transmet votre mot de passe.',error:'Impossible de déverrouiller. Vérifiez le mot de passe ou rechargez la page.',lock:'Verrouiller',unlocked:'PRIVÉ · OUVERT',footer:'Recherche, mémoire et quotidien — au même endroit.',pending:'Déverrouillage…'},
     zh:{back:'返回个人首页',private:'私人工作台',eyebrow:'欢迎来到 ARIES',title:'你的 Aries，<br><span>由你解锁。</span>',intro:'使用与 Cygnus 相同的密码，打开你的工作台。',password:'工作台密码',unlock:'解锁 Aries',note:'仅在此浏览器解密。本页不保存或发送你的密码。',error:'无法解锁，请核对密码或刷新页面重试。',lock:'锁定工作台',unlocked:'私人工作台 · 已解锁',footer:'研究、记忆与日常，汇聚在一处。',pending:'正在解锁…'}
   };
-  let language='en',generation=0,busy=false,frame=null,controller=null;
+  let language='zh',generation=0,busy=false,frame=null,controller=null;
   function setLanguage(value){
     if(!allowed.has(value))return;language=value;document.documentElement.lang=value==='zh'?'zh-CN':value;
     const t=copy[value];document.title='Aries · '+t.private;for(const node of document.querySelectorAll('[data-text]'))node.textContent=t[node.dataset.text];
@@ -77,5 +77,5 @@
     }catch(error){if(attempt===generation){$('error').textContent=copy[language].error;$('password').setAttribute('aria-invalid','true');$('password').focus();}}
     finally{clearTimeout(timeout);secret.fill(0);secret=null;if(attempt===generation){busy=false;controller=null;$('password').value='';$('unlock').disabled=false;setLanguage(language);}}
   });
-  $('lock').addEventListener('click',lock);window.addEventListener('pagehide',lock);setLanguage('en');
+  $('lock').addEventListener('click',lock);window.addEventListener('pagehide',lock);setLanguage('zh');
 })();

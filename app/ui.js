@@ -5,7 +5,8 @@
 (function () {
   "use strict";
   const D = window.SITE_DATA;
-  let lang = localStorage.getItem("ky_lang") || "en";
+  const savedLanguage = localStorage.getItem("ky_lang");
+  let lang = ["zh", "en", "fr"].includes(savedLanguage) ? savedLanguage : "zh";
   const L = (o) => (o == null ? "" : typeof o === "string" ? o : o[lang] || o.en || "");
   const T = (k) => { const u = D.ui[lang] || D.ui.en; return (u[k] != null ? u[k] : (D.ui.en[k] || "")); };
   const $ = (s, r = document) => r.querySelector(s);
@@ -118,7 +119,7 @@
     });
     right.appendChild(extlinks);
     const langset = el("div", "langset");
-    [["en", "EN"], ["fr", "FR"], ["zh", "中"]].forEach(([code, lbl]) => {
+    [["zh", "中文"], ["en", "EN"], ["fr", "FR"]].forEach(([code, lbl]) => {
       const b = el("button", code === lang ? "on" : "", lbl);
       b.addEventListener("click", () => setLang(code));
       langset.appendChild(b);

@@ -15,7 +15,7 @@
   const $ = id => document.getElementById(id);
   let privateKey = null, recipientId = null, generation = 0, timer = null, freshnessTimer = null, active = null;
   let current = null, currentBundle = null, renderedHash = null, renderedLanguage = null;
-  let failure = '', pulling = false, language = 'en', unlockError = false, nextState = '', nextAt = null;
+  let failure = '', pulling = false, language = 'zh', unlockError = false, nextState = '', nextAt = null;
   const hex = bytes => Array.from(bytes, x => x.toString(16).padStart(2,'0')).join('');
   function formatted(value) {
     if (value === null) return COPY[language].unavailable;
@@ -242,5 +242,6 @@
   $('refresh').addEventListener('click',pull); $('automatic').addEventListener('change',schedule); $('lock').addEventListener('click',lock);
   for (const button of document.querySelectorAll('[data-language]')) button.addEventListener('click',() => setLanguage(button.dataset.language));
   window.addEventListener('pagehide',lock);
-  setLanguage('en');
+  const requestedLanguage = new URL(location.href).searchParams.get('lang');
+  setLanguage(LANGUAGES.includes(requestedLanguage) ? requestedLanguage : 'zh');
 })();
