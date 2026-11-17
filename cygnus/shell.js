@@ -60,6 +60,7 @@
     $('local-note').innerHTML = t.note;
     $('unlock-label').textContent = $('unlock').disabled ? t.unlocking : t.unlock;
     $('error').textContent = unlockError ? t.error : '';
+    window.CygnusResearch?.setLanguage(language);
     nextCheck(nextState,nextAt); mount(); status();
   }
   function bytes(value, expected) {
@@ -195,6 +196,7 @@
     if (privateKey && $('automatic').checked) timer = setInterval(pull,POLL_MS);
   }
   function lock() {
+    window.CygnusResearch?.lock();
     generation++; clearInterval(timer); clearInterval(freshnessTimer); timer = freshnessTimer = null;
     if (active) active.abort(); active = null;
     privateKey = null; recipientId = null; current = null; currentBundle = null; currentCommit = null; failure = ''; pulling = false;
@@ -230,6 +232,7 @@
       const fallback = await decrypt(bootstrap.fallback,key,r.recipient_id);
       if (attempt !== generation) return;
       privateKey = key; recipientId = r.recipient_id; display(fallback,'fallback');
+      window.CygnusResearch?.unlock(key,recipientId,language);
       $('gate').hidden = true; $('footer').hidden = true; $('viewer').hidden = false;
       $('refresh').disabled = false; $('publication-summary').focus(); schedule(); freshnessTimer = setInterval(status,30000); pull();
     } catch (_) {
