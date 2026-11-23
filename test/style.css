@@ -245,7 +245,7 @@ html.motion-paused .pixel-light-surface{display:none!important}html.motion-pause
 
 /* Day and night themes share the same artwork and layout. */
 :root {
-  --header-glass: rgb(10 18 18 / 66%);
+  --header-glass: rgb(10 18 18 / 56%);
   --header-fallback: #0c1313;
   --header-edge: rgb(107 184 176 / 22%);
   --header-control: #a5b1b1;
@@ -259,7 +259,7 @@ html.motion-paused .pixel-light-surface{display:none!important}html.motion-pause
   --muted: #495d60;
   --accent: #086d66;
   --line: #d0ddda;
-  --header-glass: rgb(248 250 248 / 72%);
+  --header-glass: rgb(248 250 248 / 62%);
   --header-fallback: #f3f7f5;
   --header-edge: rgb(41 98 93 / 22%);
   --header-control: #425759;
