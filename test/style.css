@@ -293,51 +293,19 @@ html.motion-paused .pixel-light-surface{display:none!important}html.motion-pause
 .nav-brand {
   grid-area: 1 / 2;
   justify-self: center;
-  position: relative;
+  display: grid;
+  place-items: center;
   width: var(--wordmark-width);
   height: 52px;
-  transition: width .43s cubic-bezier(.22, 1, .36, 1);
+  color: #f5f7f7;
 }
-.nav-brand .brand-wordmark,
-.nav-brand .brand-mark {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transition: opacity .25s ease, transform .43s cubic-bezier(.22, 1, .36, 1);
+:root[data-theme="light"] .nav-brand { color: #282d32; }
+.nav-brand-art {
+  display: block;
+  width: 100%;
+  overflow: visible;
 }
-.nav-brand .brand-wordmark {
-  width: var(--wordmark-width);
-  transform: translate(-50%, -50%);
-}
-.nav-brand .brand-wordmark img { width: 100%; }
-.nav-brand .brand-mark {
-  width: 46px;
-  height: 52px;
-  opacity: 0;
-  transform: translate(-50%, calc(-50% + 7px)) scale(.8) rotate(-7deg);
-}
-.brand-mark-dot {
-  transform: translateY(65px);
-  opacity: 0;
-  transition: transform .45s cubic-bezier(.2, 1.5, .46, 1), opacity .24s ease;
-}
-.is-scrolled .nav-brand { width: 48px; }
-.is-scrolled .nav-brand .brand-wordmark {
-  opacity: 0;
-  transform: translate(-50%, calc(-50% - 6px)) scale(.92);
-}
-.is-scrolled .nav-brand .brand-mark {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
-}
-.is-scrolled .brand-mark-dot {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: .1s;
-}
-html.motion-paused :is(.site-header,.nav-brand,.nav-brand .brand-wordmark,.brand-mark,.brand-mark-dot) {
-  transition: none;
-}
+html.motion-paused .site-header { transition: none; }
 
 .theme-toggle {
   display: grid;
